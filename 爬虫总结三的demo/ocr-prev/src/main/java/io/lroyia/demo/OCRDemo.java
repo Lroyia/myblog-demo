@@ -74,23 +74,6 @@ public class OCRDemo {
             System.out.println("扫描区域过小，请扩大扫描区域");
         }
 
-        // 找出背景色和干扰线颜色
-//        Pixel maxPixel = null;
-//        Pixel minPixel = null;
-//        int max = 0;
-//        int min = Integer.MAX_VALUE;
-//        for (Map.Entry<Pixel, Integer> each : summaryMap.entrySet()) {
-//            Pixel pixel = each.getKey();
-//            int value = each.getValue();
-//            if (value > max) {
-//                maxPixel = pixel;
-//                max = value;
-//            }
-//            if (value < min) {
-//                minPixel = pixel;
-//                min = value;
-//            }
-//        }
         Pixel maxPixel;
         Pixel minPixel;
 
@@ -185,7 +168,7 @@ public class OCRDemo {
                 sg += each.g;
                 sb += each.b;
             }
-            return new Pixel(sr / pixel.length+1, sg / pixel.length+1,  sb/ pixel.length+1);
+            return new Pixel(sr / (pixel.length+1), sg / (pixel.length+1),  sb/ (pixel.length+1));
         }
 
         /**
@@ -194,7 +177,7 @@ public class OCRDemo {
          * @return 整形颜色值
          */
         public int getColor() {
-            return r << 16 + g << 8 + b;
+            return ((r << 16) | 0xff0000) + ((g << 8) | 0xff00) + b | 0xff;
         }
 
         public Pixel(int r, int g, int b) {
